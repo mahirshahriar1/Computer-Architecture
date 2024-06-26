@@ -1,6 +1,15 @@
 # CSE 231 Digital Logic design
 ## Pattern-based Digital Lock System
 
+![Final Look](1.jpg)
+![Digital Lock System](2.jpg)
+
+### Teammates
+- [Tanvir Ahmed Khan](hhttps://github.com/tanvirahmedkhan74)
+- Shaila Meraz Jhumu
+- Mahbub Mokaddes Akash
+
+
 ### Primary Part
 
 #### Input
@@ -32,5 +41,3 @@ The pattern will consist of 4 digits.
 - The admin will be able to delete the patterns sequentially or selectively.
 - The displays will automatically be off if no input is received for n seconds.
 
-![Final Look](1.jpg)
-![Digital Lock System](2.jpg)

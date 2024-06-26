@@ -1,6 +1,8 @@
 # CSE 332 Computer Organization and Architecture
 ## Title: 16-bit Processor Project
 
+![Final Look](main.png)
+
 ### Components and Design
 
 #### Instruction Formats
