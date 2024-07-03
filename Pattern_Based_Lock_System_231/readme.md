@@ -5,7 +5,7 @@
 ![Digital Lock System](2.jpg)
 
 ### Teammates
-- [Tanvir Ahmed Khan](hhttps://github.com/tanvirahmedkhan74)
+- [Tanvir Ahmed Khan](https://github.com/tanvirahmedkhan74)
 - Shaila Meraz Jhumu
 - Mahbub Mokaddes Akash
 
