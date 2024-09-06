@@ -1,0 +1,138 @@
+Title : Designing an 32 bit Enhanced Adder using Verilog
+
+module enhanced_32_bit_adder(A, B, Lt, of, Ai, Bi, Op, Result, zero, OV);
+
+input [31:0] A, B; // 32 bit inputs
+input Ai, Bi; // 1 bit inputs for Invert A and Invert B
+input [3:0] Op; // 4 bit input for operation op[0] is for Ainvert
+				// op[1] is for Binvert
+				// op[2] and [3] is for result selection
+output OV, zero, Cout; // Overflow, Zero and Carry output
+output [31:0] Result; // 32 bit output
+wire [31:0] C, Set; // 32 bit wires for carry and 1 bit wire for set
+
+always @(*) 
+	full_adder_en FA1  (A[0],  B[0],  Set,  Op[1],   Op[0], Op[1], Op [2:3], Result[0],  C[0]);
+	full_adder_en FA2  (A[1],  B[1],  1’b0, C[0],    Op[0], Op[1], Op [2:3], Result[1],  C[1]);
+	full_adder_en FA3  (A[2],  B[2],  1’b0, C[1],    Op[0], Op[1], Op [2:3], Result[2],  C[2]);
+	full_adder_en FA4  (A[3],  B[3],  1’b0, C[2],    Op[0], Op[1], Op [2:3], Result[3],  C[3]);
+	full_adder_en FA5  (A[4],  B[4],  1’b0, C[3],    Op[0], Op[1], Op [2:3], Result[4],  C[4]);
+	full_adder_en FA6  (A[5],  B[5],  1’b0, C[4],    Op[0], Op[1], Op [2:3], Result[5],  C[5]);
+	full_adder_en FA7  (A[6],  B[6],  1’b0, C[5],    Op[0], Op[1], Op [2:3], Result[6],  C[6]);
+	full_adder_en FA8  (A[7],  B[7],  1’b0, C[6],    Op[0], Op[1], Op [2:3], Result[7],  C[7]);
+	full_adder_en FA9  (A[8],  B[8],  1’b0, C[7],    Op[0], Op[1], Op [2:3], Result[8],  C[8]);
+	full_adder_en FA10 (A[9],  B[9],  1’b0, C[8],    Op[0], Op[1], Op [2:3], Result[9],  C[9]);
+	full_adder_en FA11 (A[10], B[10], 1’b0, C[9],    Op[0], Op[1], Op [2:3], Result[10], C[10]);
+	full_adder_en FA12 (A[11], B[11], 1’b0, C[10],   Op[0], Op[1], Op [2:3], Result[11], C[11]);
+	full_adder_en FA13 (A[12], B[12], 1’b0, C[11],   Op[0], Op[1], Op [2:3], Result[12], C[12]);
+	full_adder_en FA14 (A[13], B[13], 1’b0, C[12],   Op[0], Op[1], Op [2:3], Result[13], C[13]);
+	full_adder_en FA15 (A[14], B[14], 1’b0, C[13],   Op[0], Op[1], Op [2:3], Result[14], C[14]);
+	full_adder_en FA16 (A[15], B[15], 1’b0, C[14],   Op[0], Op[1], Op [2:3], Result[15], C[15]);
+	full_adder_en FA17 (A[16], B[16], 1’b0, C[15],   Op[0], Op[1], Op [2:3], Result[16], C[16]);
+	full_adder_en FA18 (A[17], B[17], 1’b0, C[16],   Op[0], Op[1], Op [2:3], Result[17], C[17]);
+	full_adder_en FA19 (A[18], B[18], 1’b0, C[17],   Op[0], Op[1], Op [2:3], Result[18], C[18]);
+	full_adder_en FA20 (A[19], B[19], 1’b0, C[18],   Op[0], Op[1], Op [2:3], Result[19], C[19]);
+	full_adder_en FA21 (A[20], B[20], 1’b0, C[19],   Op[0], Op[1], Op [2:3], Result[20], C[20]);
+	full_adder_en FA22 (A[21], B[21], 1’b0, C[20],   Op[0], Op[1], Op [2:3], Result[21], C[21]);
+	full_adder_en FA23 (A[22], B[22], 1’b0, C[21],   Op[0], Op[1], Op [2:3], Result[22], C[22]);
+	full_adder_en FA24 (A[23], B[23], 1’b0, C[22],   Op[0], Op[1], Op [2:3], Result[23], C[23]);
+	full_adder_en FA25 (A[24], B[24], 1’b0, C[23],   Op[0], Op[1], Op [2:3], Result[24], C[24]);
+	full_adder_en FA26 (A[25], B[25], 1’b0, C[24],   Op[0], Op[1], Op [2:3], Result[25], C[25]);
+	full_adder_en FA27 (A[26], B[26], 1’b0, C[25],   Op[0], Op[1], Op [2:3], Result[26], C[26]);
+	full_adder_en FA28 (A[27], B[27], 1’b0, C[26],   Op[0], Op[1], Op [2:3], Result[27], C[27]);
+	full_adder_en FA29 (A[28], B[28], 1’b0, C[27],   Op[0], Op[1], Op [2:3], Result[28], C[28]);
+	full_adder_en FA30 (A[29], B[29], 1’b0, C[28],   Op[0], Op[1], Op [2:3], Result[29], C[29]);
+	full_adder_en FA31 (A[30], B[30], 1’b0, C[29],   Op[0], Op[1], Op [2:3], Result[30], C[30]);
+	full_adder_en FA32 (A[31], B[31], 1’b0, C[30],   Op[0], Op[1], Op [2:3], Result[31], Cout);
+
+assign OV = C30 ^ Cout;	 // Overflow is the XOR of the last carry in and the carry out of the last full adder
+assign zero = ~(Result[0] | Result[1] | Result[2] | Result[3] | Result[4] | Result[5] | Result[6] | 
+				Result[7] | Result[8] | Result[9] | Result[10] | Result[11] | Result[12] | Result[13] | 
+				Result[14] | Result[15] | Result[16] | Result[17] | Result[18] | Result[19] | Result[20] | 
+				Result[21] | Result[22] | Result[23] | Result[24] | Result[25] | Result[26] | Result[27] | 
+				Result[28] | Result[29] | Result[30] | Result[31]);
+//zero is the negation of the OR of all the bits of the result
+
+assign Cout = C[31]; //	Carry out is the last carry out of the last full adder
+assign Set = Result[31] ^ OV;  // Set is the XOR of the last bit of the result and the overflow
+
+endmodule
+
+
+module full_adder_en(A, B, Lt, Cin, Op0, Op1, Op[2:3], Result, Cout);
+
+input A, B, Lt, Cin; // 1 bit inputs
+input Op0, Op1, Op[2:3];  //op0 is Ainvert Op1 is Binvert Op[2:3] is for result selection
+output Result, Cout; 
+
+wire Sum, OR, AND;
+
+wire [1:2] mux_out; // 2 , 1 bit wire for operation
+
+assign Ai = ~A;	 // Ai is the negation of A
+assign Bi = ~B; // Bi is the negation of B
+
+mux2x1 Mux1(A, Ai, Op0, mux_out[0]); //choose between A and Ai
+mux2x1 Mux2(B, Bi, Op1, mux_out[1]); //choose between B and Bi
+
+// mux_out[0] is the output of the first mux which is A
+// mux_out[1] is the output of the second mux which is B
+assign Sum = (mux_out[0] & mux_out[1] & Cin) | (~mux_out[0] & ~mux_out[1] & Cin) | (~mux_out[0] & mux_out[1] & ~Cin) | (mux_out[0] & ~mux_out[1] & ~Cin);
+assign Cout = (mux_out[0] & Cin) | (mux_out[1] & mux_out[0]) | (mux_out[1] & Cin);
+assign OR = mux_out[0] | mux_out[1];
+assign AND = mux_out[0] & mux_out[1];
+
+mux4x1 Mux3(AND,OR,Sum,Lt, Op[2:3], Result); //choose between AND, OR and Sum
+
+endmodule
+
+
+module mux4x1(A,B,C,D,Sel,Q);
+
+input A,B,C,D;
+input [1:0] Sel;
+output reg Q;
+
+
+always @(*)
+	if(Sel==2’b00)
+		Q = A;
+	else if(Sel==2’b01)
+		Q = B;
+	else if(Sel==2’b10)
+		Q = C;
+	else 
+		Q = D;
+endmodule
+
+
+
+module 2x1mux(A,B,Sel,Q);
+
+input A,B,Sel;
+output reg Q;
+
+always @(*)
+	if(Sel==1’b0)
+		Q = A;
+	else 
+		Q = B;
+endmodule
+
+
+--------------------------------------------------------------------
+Structural Modeling:
+
+In my code, where i have instantiate multiple instances of "full_adder_en" within the "enhanced_32_bit_adder" module. I have effectively created  32-bit adder by interconnecting 32 1-bit full adders, which is a clear reflection of how the hardware would be structured.
+
+Dataflow Modeling:
+
+The 'assign' statements in my code exemplify dataflow modeling. For instance, operations like computing the 'Sum', 'Cout', 'OR', 'AND', and 'OV' variables use continuous assignments based on the logical relationships between different inputs. This abstracts away the actual hardware and focuses on the mathematical or logical relationships between inputs and outputs.
+
+Behavioral Modeling:
+
+In the "mux4x1" and "2x1mux" modules, I utilized behavioral modeling. Inside the "always" block, i describe how the output 'Q' should change based on the 'Sel' signal using conditional statements (if-else cases).
+
+Hierarchical Modeling:
+
+My entire code demonstrates hierarchical modeling. I am building a 32-bit enhanced adder using lower-level components like 1-bit full adders, multiplexers, etc. Each module serves a function and, when combined, forms a complete system with a specific behavior.
